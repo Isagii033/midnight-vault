@@ -709,7 +709,7 @@ export default function MidnightVault() {
                 <img src="/moon1.jpg" alt="Moon 20/06/2007" className="w-full h-full object-cover opacity-90" />
               </div>
               <p className="text-rose-500 font-medium text-lg" style={{ fontFamily: "'Georgia', 'Times New Roman', serif" }}>Nithya</p>
-              <p className="text-gray-500 text-xs mt-1 tracking-widest">20/06/2007</p>
+              <p className="text-gray-500 text-xs mt-1 tracking-widest">20/06/2008</p>
             </div>
             
             <div className="flex flex-col items-center">
