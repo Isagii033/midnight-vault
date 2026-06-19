@@ -386,7 +386,16 @@ export default function MidnightVault() {
               type="text"
               inputMode="numeric"
               value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
+              onChange={(e) => {
+                let val = e.target.value.replace(/[^\d]/g, "");
+                if (val.length > 8) val = val.substring(0, 8);
+                if (val.length >= 5) {
+                  val = val.substring(0, 2) + "/" + val.substring(2, 4) + "/" + val.substring(4);
+                } else if (val.length >= 3) {
+                  val = val.substring(0, 2) + "/" + val.substring(2);
+                }
+                setInputValue(val);
+              }}
               placeholder={
                 SECURITY_PROMPTS[currentPromptIndex]?.placeholder ?? ""
               }
