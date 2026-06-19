@@ -135,7 +135,6 @@ export default function MidnightVault() {
   const [showPayload, setShowPayload] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
   const [bootComplete, setBootComplete] = useState(false);
-  const [bootComplete, setBootComplete] = useState(false);
   const [giftOpened, setGiftOpened] = useState(false);
   const [timeTogether, setTimeTogether] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
@@ -717,7 +716,7 @@ export default function MidnightVault() {
               <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-full overflow-hidden shadow-[0_0_30px_rgba(244,114,182,0.3)] mb-4 border-2 border-white/60 bg-black">
                 <img src="/moon2.jpg" alt="Moon 11/08/2005" className="w-full h-full object-cover opacity-90" />
               </div>
-              <p className="text-rose-500 font-medium text-lg" style={{ fontFamily: "'Georgia', 'Times New Roman', serif" }}>Isagi</p>
+              <p className="text-rose-500 font-medium text-lg" style={{ fontFamily: "'Georgia', 'Times New Roman', serif" }}>Mohsin</p>
               <p className="text-gray-500 text-xs mt-1 tracking-widest">11/08/2005</p>
             </div>
           </div>
