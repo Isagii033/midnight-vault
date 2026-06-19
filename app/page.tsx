@@ -135,7 +135,31 @@ export default function MidnightVault() {
   const [showPayload, setShowPayload] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
   const [bootComplete, setBootComplete] = useState(false);
+  const [bootComplete, setBootComplete] = useState(false);
   const [giftOpened, setGiftOpened] = useState(false);
+  const [timeTogether, setTimeTogether] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+
+  useEffect(() => {
+    if (phase !== "payload") return;
+    
+    // Parse anniversary date
+    const [day, month, year] = SECURITY_PROMPTS[2].answer.split("/");
+    const annivDate = new Date(parseInt(year, 10), parseInt(month, 10) - 1, parseInt(day, 10)).getTime();
+
+    const interval = setInterval(() => {
+      const now = Date.now();
+      const diff = Math.abs(now - annivDate);
+      
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / 1000 / 60) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+      
+      setTimeTogether({ days, hours, minutes, seconds });
+    }, 1000);
+    
+    return () => clearInterval(interval);
+  }, [phase]);
 
   const inputRef = useRef<HTMLInputElement>(null);
   const terminalRef = useRef<HTMLDivElement>(null);
@@ -643,6 +667,58 @@ export default function MidnightVault() {
               >
                 Your gift awaits... 🎁
               </p>
+            </div>
+          </div>
+        </div>
+
+        {/* ── Time Together Counter ── */}
+        <div
+          className="mt-8 sm:mt-12 text-center w-full max-w-lg mx-auto"
+          style={{ animation: "fadeSlideIn 1s ease-out 0.8s both" }}
+        >
+          <p className="text-rose-400 text-sm sm:text-base font-medium mb-4" style={{ fontFamily: "'Georgia', 'Times New Roman', serif" }}>
+            Every second since our anniversary...
+          </p>
+          <div className="flex justify-center gap-3 sm:gap-6">
+            {[
+              { label: "DAYS", value: timeTogether.days },
+              { label: "HOURS", value: timeTogether.hours },
+              { label: "MINS", value: timeTogether.minutes },
+              { label: "SECS", value: timeTogether.seconds }
+            ].map((unit, idx) => (
+              <div key={idx} className="bg-white/50 backdrop-blur-md rounded-xl p-3 sm:p-4 min-w-[70px] sm:min-w-[90px] shadow-[0_4px_20px_rgba(244,114,182,0.15)] border border-white/60">
+                <div className="text-2xl sm:text-3xl font-bold text-rose-500 mb-1" style={{ fontFamily: "'Georgia', 'Times New Roman', serif" }}>
+                  {unit.value}
+                </div>
+                <div className="text-[9px] sm:text-[10px] text-gray-500 tracking-[0.2em]">{unit.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* ── Our Moons ── */}
+        <div
+          className="mt-12 sm:mt-16 text-center w-full max-w-lg mx-auto"
+          style={{ animation: "fadeSlideIn 1s ease-out 1s both" }}
+        >
+          <h3 className="text-2xl sm:text-3xl text-rose-400 mb-6" style={{ fontFamily: "'Georgia', 'Times New Roman', serif" }}>
+            Our Moons
+          </h3>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-8 sm:gap-12">
+            <div className="flex flex-col items-center">
+              <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-full overflow-hidden shadow-[0_0_30px_rgba(244,114,182,0.3)] mb-4 border-2 border-white/60 bg-black">
+                <img src="/moon1.jpg" alt="Moon 20/06/2007" className="w-full h-full object-cover opacity-90" />
+              </div>
+              <p className="text-rose-500 font-medium text-lg" style={{ fontFamily: "'Georgia', 'Times New Roman', serif" }}>Nithya</p>
+              <p className="text-gray-500 text-xs mt-1 tracking-widest">20/06/2007</p>
+            </div>
+            
+            <div className="flex flex-col items-center">
+              <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-full overflow-hidden shadow-[0_0_30px_rgba(244,114,182,0.3)] mb-4 border-2 border-white/60 bg-black">
+                <img src="/moon2.jpg" alt="Moon 11/08/2005" className="w-full h-full object-cover opacity-90" />
+              </div>
+              <p className="text-rose-500 font-medium text-lg" style={{ fontFamily: "'Georgia', 'Times New Roman', serif" }}>Isagi</p>
+              <p className="text-gray-500 text-xs mt-1 tracking-widest">11/08/2005</p>
             </div>
           </div>
         </div>
